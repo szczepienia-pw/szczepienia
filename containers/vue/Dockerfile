@@ -3,7 +3,7 @@ FROM node:lts-alpine
 
 # install simple http server for serving static content
 RUN npm install -g http-server
-RUN apk install git
+RUN apk update && apk upgrade && apk add --no-cache bash git openssh
 
 # make the 'app' folder the current working directory
 WORKDIR /app
