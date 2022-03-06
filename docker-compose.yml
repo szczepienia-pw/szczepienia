@@ -54,5 +54,16 @@ services:
     environment:
       PMA_HOST: 'mariadb'
 
+  front-admin:
+    container_name: vue
+    build:
+      dockerfile: containers/vue/Dockerfile
+    volumes:
+      - /home/flatly/:/app/
+    image: vue
+    networks: 
+      - vaccinations
+    restart: unless-stopped
+
 networks:
   vaccinations:
