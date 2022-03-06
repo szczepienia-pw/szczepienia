@@ -29,7 +29,7 @@ services:
     - PUID=1000
     - PGID=1000
     - TZ=Europe/Warsaw
-    - URL=flatly.online
+    - URL=szczepienia.pw
     - SUBDOMAINS=www,develop,jenkins,phpmyadmin,backend,doctor,admin,develop.doctor,develop.admin
     - VALIDATION=dns
     - DNSPLUGIN=cloudflare
@@ -55,9 +55,10 @@ services:
     environment:
       PMA_HOST: 'mariadb'
 
-  front-admin:
+  vue:
     container_name: vue
     build:
+      context: . 
       dockerfile: containers/vue/Dockerfile
     volumes:
       - /home/flatly/:/app/
