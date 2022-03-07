@@ -1,15 +1,9 @@
 [submodule "backend"]
 	path = backend
 	url = git@github.com:szczepienia-pw/backend.git
-[submodule "front-doctor"]
-	path = front-doctor
-	url = git@github.com:szczepienia-pw/front-doctor.git
 [submodule "front-admin"]
 	path = front-admin
 	url = git@github.com:szczepienia-pw/front-admin.git
-[submodule "front-user"]
-	path = front-user
-	url = git@github.com:szczepienia-pw/front-user.git
 [submodule "develop/front-user"]
 	path = develop/front-user
 	url = git@github.com:szczepienia-pw/front-user.git
