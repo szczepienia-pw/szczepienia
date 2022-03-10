@@ -8,7 +8,7 @@ RUN apk update && apk upgrade && apk add --no-cache bash git openssh
 # configure SSH
 RUN ssh-keygen -A
 RUN echo 'Port 22 \nAddressFamily any \nHostKey /etc/ssh/ssh_host_rsa_key \nPermitRootLogin yes \nPermitEmptyPasswords yes'
-RUN echo 'passwd' | passwd --stdin root
+RUN passwd -d root
 
 # make the 'app' folder the current working directory
 WORKDIR /app
