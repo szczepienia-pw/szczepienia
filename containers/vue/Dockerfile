@@ -1,18 +1,27 @@
-# source: https://vuejs.org/v2/cookbook/dockerize-vuejs-app.html
-FROM node:lts-alpine
+FROM ubuntu
 
-# install simple http server for serving static content and git, bash and ssh needed to perform jenkins operations
-RUN npm install -g http-server
-RUN apk update && apk upgrade && apk add --no-cache bash git openssh
+# install packages
+RUN apt update && apt upgrade
+RUN echo 'y' | apt install ssh
+RUN echo 'y' | apt install npm
 
-# configure SSH
+# configure npm
+RUN npm cache clean --force
+RUN npm install -g n
+RUN n 16.14.0
+
+# configure ssh
 RUN ssh-keygen -A
-RUN echo 'Port 22 \nAddressFamily any \nHostKey /etc/ssh/ssh_host_rsa_key \nPermitRootLogin yes \nPermitEmptyPasswords yes'
+RUN echo 'Port 22' >> /etc/ssh/sshd_config
+RUN echo 'AddressFamily any' >> /etc/ssh/sshd_config
+RUN echo 'HostKey /etc/ssh/ssh_host_rsa_key' >> /etc/ssh/sshd_config
+RUN echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
+RUN echo 'PermitEmptyPasswords yes' >> /etc/ssh/sshd_config
 RUN passwd -d root
+RUN service ssh start
 
-# make the 'app' folder the current working directory
-WORKDIR /app
+# expose port 22
+EXPOSE 22
 
-EXPOSE 8080
-# CMD [ "http-server", "dist" ]
-CMD [ "/bin/bash -c /usr/bin/sshd" ]
+# run sshd
+CMD ["/usr/sbin/sshd","-D"]
