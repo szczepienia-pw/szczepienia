@@ -33,7 +33,13 @@ RUN chmod +x /var/cache/java.exp
 RUN /var/cache/java.exp
 RUN dpkg --configure -a
 
-# configure dotnet
+# add ms key to apt dotnet
+RUN wget https://packages.microsoft.com/config/ubuntu/21.04/packages-microsoft-prod.deb -O /var/packages-microsoft-prod.deb
+RUN dpkg -i /var/packages-microsoft-prod.deb
+RUN rm /var/packages-microsoft-prod.deb
+
+# install SDK
+RUN apt update; apt install -y apt-transport-https; apt update; apt install -y dotnet-sdk-6.0
 
 # run sshd
 CMD ["/usr/sbin/sshd","-D"]
