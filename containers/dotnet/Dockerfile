@@ -33,11 +33,7 @@ RUN chmod +x /var/cache/java.exp
 RUN /var/cache/java.exp
 RUN dpkg --configure -a
 
-# configure npm
-RUN apt install npm -y
-RUN npm cache clean --force
-RUN npm install -g n
-RUN n 16.14.0
+# configure dotnet
 
 # run sshd
 CMD ["/usr/sbin/sshd","-D"]

@@ -9,6 +9,8 @@ services:
     environment:
       MARIADB_ALLOW_EMPTY_ROOT_PASSWORD: 'true'
     restart: unless-stopped
+    volumes:
+      - /home/flatly/apps/mariadb:/var/lib/mysql
 
   swag:
     container_name: swag
@@ -21,7 +23,8 @@ services:
     volumes:
     - ./nginx/site-confs:/config/nginx/site-confs
     - ./nginx/proxy-confs:/config/nginx/proxy-confs
-    - /home/flatly/drop_zone/www:/config/www
+    - /home/flatly/apps/www:/config/www
+    - ./nginx/cert:/config/dns-conf/
     ports:
     - 443:443
     - 80:80
@@ -30,7 +33,7 @@ services:
     - PGID=1000
     - TZ=Europe/Warsaw
     - URL=szczepienia.pw
-    - SUBDOMAINS=www,develop,jenkins,phpmyadmin,backend,doctor,admin,develop.doctor,develop.admin
+    - SUBDOMAINS=www,develop,jenkins,phpmyadmin,backend,develop-backend
     - VALIDATION=dns
     - DNSPLUGIN=cloudflare
     - DUCKDNSTOKEN=e68c855a-e1d6-4da3-ac66-0443bc4bf250
@@ -44,7 +47,7 @@ services:
     - vaccinations
     restart: unless-stopped
     volumes:
-    - /home/flatly/drop_zone:/var/jenkins_home
+    - /home/flatly/apps/jenkins:/var/jenkins_home
 
   phpmyadmin:
     container_name: phpmyadmin
@@ -58,11 +61,23 @@ services:
   vue:
     container_name: vue
     build:
-      context: . 
-      dockerfile: containers/vue/Dockerfile
+      context: ./scripts 
+      dockerfile: ../containers/vue/Dockerfile
     volumes:
       - /home/flatly/:/app/
     image: vue
+    networks: 
+      - vaccinations
+    restart: unless-stopped
+
+  dotnet:
+    container_name: dotnet
+    build:
+      context: ./scripts
+      dockerfile: ../containers/dotnet/Dockerfile
+    volumes:
+      - /home/flatly/apps/dotnet:/app/
+    image: dotnet
     networks: 
       - vaccinations
     restart: unless-stopped

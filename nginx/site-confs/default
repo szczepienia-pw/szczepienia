@@ -15,7 +15,7 @@ server {
     listen 443 ssl http2 default_server;
     listen [::]:443 ssl http2 default_server;
 
-    root /config/www/front-user;
+    root /config/www/main;
     index index.html index.htm index.php;
 
     server_name _;
@@ -72,106 +72,10 @@ server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    root /config/www/develop/front-user;
+    root /config/www/develop;
     index index.html index.htm index.php;
 
     server_name develop.szczepienia.pw;
-
-    include /config/nginx/ssl.conf;
-    client_max_body_size 0;
-
-    location / {
-        try_files $uri $uri/ /index.html /index.php?$args =404;
-    }
-
-    location ~ \.php$ {
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_pass 127.0.0.1:9000;
-        fastcgi_index index.php;
-        include /etc/nginx/fastcgi_params;
-    }
-}
-
-server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
-
-    root /config/www/develop/front-doctor;
-    index index.html index.htm index.php;
-
-    server_name develop.doctor.szczepienia.pw;
-
-    include /config/nginx/ssl.conf;
-    client_max_body_size 0;
-
-    location / {
-        try_files $uri $uri/ /index.html /index.php?$args =404;
-    }
-
-    location ~ \.php$ {
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_pass 127.0.0.1:9000;
-        fastcgi_index index.php;
-        include /etc/nginx/fastcgi_params;
-    }
-}
-
-server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
-
-    root /config/www/develop/front-admin;
-    index index.html index.htm index.php;
-
-    server_name develop.admin.szczepienia.pw;
-
-    include /config/nginx/ssl.conf;
-    client_max_body_size 0;
-
-    location / {
-        try_files $uri $uri/ /index.html /index.php?$args =404;
-    }
-
-    location ~ \.php$ {
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_pass 127.0.0.1:9000;
-        fastcgi_index index.php;
-        include /etc/nginx/fastcgi_params;
-    }
-}
-
-server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
-
-    root /config/www/front-admin;
-    index index.html index.htm index.php;
-
-    server_name admin.szczepienia.pw;
-
-    include /config/nginx/ssl.conf;
-    client_max_body_size 0;
-
-    location / {
-        try_files $uri $uri/ /index.html /index.php?$args =404;
-    }
-
-    location ~ \.php$ {
-        fastcgi_split_path_info ^(.+\.php)(/.+)$;
-        fastcgi_pass 127.0.0.1:9000;
-        fastcgi_index index.php;
-        include /etc/nginx/fastcgi_params;
-    }
-}
-
-server {
-    listen 443 ssl;
-    listen [::]:443 ssl;
-
-    root /config/www/front-doctor;
-    index index.html index.htm index.php;
-
-    server_name doctor.szczepienia.pw;
 
     include /config/nginx/ssl.conf;
     client_max_body_size 0;
