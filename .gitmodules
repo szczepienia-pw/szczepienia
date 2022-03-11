@@ -1,6 +1,6 @@
 [submodule "backend"]
 	path = backend
 	url = git@github.com:szczepienia-pw/backend.git
-[submodule "front-admin"]
+[submodule "frontend"]
 	path = frontend
-	url = git@github.com:szczepienia-pw/front-admin.git
+	url = git@github.com:szczepienia-pw/frontend.git
