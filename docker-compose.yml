@@ -82,5 +82,29 @@ services:
       - vaccinations
     restart: unless-stopped
 
+  backend:
+    container_name: backend
+    build:
+      context: ./containers/backend/
+      dockerfile: ./Dockerfile
+    image: backend
+    volumes:
+      - /home/flatly/apps/dotnet/main:/app
+    networks: 
+      - vaccinations
+    restart: unless-stopped
+
+  backend-develop:
+    container_name: backend-develop
+    build:
+      context: ./containers/backend/
+      dockerfile: ./Dockerfile
+    image: backend-develop
+    volumes:
+      - /home/flatly/apps/dotnet/develop:/app
+    networks: 
+      - vaccinations
+    restart: unless-stopped
+
 networks:
   vaccinations:

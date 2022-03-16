@@ -92,6 +92,48 @@ server {
     }
 }
 
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name backend.szczepienia.pw;
+
+    include /config/nginx/ssl.conf;
+    client_max_body_size 0;
+
+    location / {
+            proxy_pass         http://backend:80;
+            proxy_http_version 1.1;
+            proxy_set_header   Upgrade $http_upgrade;
+            proxy_set_header   Connection keep-alive;
+            proxy_set_header   Host $host;
+            proxy_cache_bypass $http_upgrade;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header   X-Forwarded-Proto $scheme;
+    }
+}
+
+server {
+    listen 443 ssl;
+    listen [::]:443 ssl;
+
+    server_name backend-develop.szczepienia.pw;
+
+    include /config/nginx/ssl.conf;
+    client_max_body_size 0;
+
+    location / {
+            proxy_pass         http://backend-develop:80;
+            proxy_http_version 1.1;
+            proxy_set_header   Upgrade $http_upgrade;
+            proxy_set_header   Connection keep-alive;
+            proxy_set_header   Host $host;
+            proxy_cache_bypass $http_upgrade;
+            proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header   X-Forwarded-Proto $scheme;
+    }
+}
+
 # sample reverse proxy config without url base, but as a subdomain "cp", ip and port same as above
 # notice this is a new server block, you need a new server block for each subdomain
 #server {
