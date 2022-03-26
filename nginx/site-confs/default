@@ -117,7 +117,7 @@ server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name backend-develop.szczepienia.pw;
+    server_name develop-backend.szczepienia.pw;
 
     include /config/nginx/ssl.conf;
     client_max_body_size 0;
