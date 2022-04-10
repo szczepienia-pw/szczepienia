@@ -33,7 +33,7 @@ services:
     - PGID=1000
     - TZ=Europe/Warsaw
     - URL=szczepienia.pw
-    - SUBDOMAINS=www,develop,jenkins,phpmyadmin,backend,develop-backend
+    - SUBDOMAINS=www,develop,jenkins,phpmyadmin,backend,develop-backend,test,test-backend
     - VALIDATION=dns
     - DNSPLUGIN=cloudflare
     - DUCKDNSTOKEN=e68c855a-e1d6-4da3-ac66-0443bc4bf250
@@ -109,9 +109,9 @@ services:
   cross:
     container_name: cross
     build:
-      context: ./containers/cross/
-      dockerfile: ./Dockerfile
-    image: backend
+      context: ./scripts/
+      dockerfile: ../containers/cross/Dockerfile
+    image: cross
     networks: 
       - vaccinations
     restart: unless-stopped
