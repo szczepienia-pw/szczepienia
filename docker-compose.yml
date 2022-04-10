@@ -111,7 +111,7 @@ services:
     build:
       context: ./containers/cross/
       dockerfile: ./Dockerfile
-    image: backend
+    image: cross
     networks: 
       - vaccinations
     restart: unless-stopped
