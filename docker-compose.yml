@@ -106,5 +106,15 @@ services:
       - vaccinations
     restart: unless-stopped
 
+  cross:
+    container_name: cross
+    build:
+      context: ./containers/cross/
+      dockerfile: ./Dockerfile
+    image: cross
+    networks: 
+      - vaccinations
+    restart: unless-stopped
+
 networks:
   vaccinations:
