@@ -109,8 +109,8 @@ services:
   cross:
     container_name: cross
     build:
-      context: ./containers/cross/
-      dockerfile: ./Dockerfile
+      context: ./scripts
+      dockerfile: ../containers/cross/Dockerfile
     image: cross
     networks: 
       - vaccinations
