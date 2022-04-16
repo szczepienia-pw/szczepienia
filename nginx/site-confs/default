@@ -135,7 +135,7 @@ server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name test-backend.szczepienia.pw;
+    server_name cross-backend.szczepienia.pw;
 
     include /config/nginx/ssl.conf;
     client_max_body_size 0;
@@ -153,7 +153,7 @@ server {
     listen 443 ssl;
     listen [::]:443 ssl;
 
-    server_name test.szczepienia.pw;
+    server_name cross.szczepienia.pw;
 
     include /config/nginx/ssl.conf;
     client_max_body_size 0;
