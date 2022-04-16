@@ -48,5 +48,8 @@ RUN npm cache clean --force
 RUN npm install -g n
 RUN n 16.14.0
 
+# install simple http server for serving static content
+RUN npm install -g http-server
+
 # run sshd
 CMD ["/usr/sbin/sshd","-D"]
