@@ -41,6 +41,7 @@ RUN rm /var/packages-microsoft-prod.deb
 # install SDK
 RUN apt update; apt install -y apt-transport-https; apt update; apt install -y dotnet-sdk-6.0
 RUN dotnet tool install --global dotnet-ef
+RUN dotnet tool install -g dotnet-reportgenerator-globaltool
 
 # run sshd
 CMD ["/usr/sbin/sshd","-D"]
